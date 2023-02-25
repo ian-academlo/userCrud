@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./utils/database");
 const User = require("./models/users.model");
 const userRoutes = require("./routes/user.routes");
@@ -25,6 +26,7 @@ db.sync()
 
 const app = express();
 
+app.use(cors()); // aceptar peticiones de todo el mundo
 app.use(express.json());
 
 app.use(userRoutes);
