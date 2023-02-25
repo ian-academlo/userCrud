@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/api/v1/users", async (req, res) => {
   try {
-    const users = await User.findAll(); // SELECT * FROM users;
+    const users = await User.findAll({
+      attributes: ["id", "name", "email"],
+    }); // SELECT id, name, email FROM users;
     res.json(users); // JSON.stringify(users)
   } catch (error) {
     res.status(400).json(error);
@@ -23,8 +25,30 @@ router.post("/api/v1/users", async (req, res) => {
   }
 }); // INSERT INTO users (name, email,  password) VALUES ()
 
-// router.put();
+router.put("/api/v1/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    await User.update(data, {
+      where: { id },
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
-// router.delete();
+// * path params
+router.delete("/api/v1/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // objeto
+    await User.destroy({
+      where: { id }, // id: id
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
 module.exports = router;
