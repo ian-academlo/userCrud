@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./utils/database");
 const User = require("./models/users.model");
+const userRoutes = require("./routes/user.routes");
 
 User;
 
@@ -23,6 +24,10 @@ db.sync()
   });
 
 const app = express();
+
+app.use(express.json());
+
+app.use(userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Bienvenido a mi servidor");
