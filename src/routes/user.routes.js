@@ -1,18 +1,10 @@
 const { Router } = require("express");
 const User = require("../models/users.model");
+const { getAllUsers } = require("../controllers/users.controller");
 
 const router = Router();
 
-router.get("/api/v1/users", async (req, res) => {
-  try {
-    const users = await User.findAll({
-      attributes: ["id", "name", "email"],
-    }); // SELECT id, name, email FROM users;
-    res.json(users); // JSON.stringify(users)
-  } catch (error) {
-    res.status(400).json(error);
-  }
-});
+router.get("/api/v1/users", getAllUsers);
 
 // SELECT * FROM users where id = 3;
 
@@ -27,6 +19,7 @@ router.get("/api/v1/users/:id", async (req, res) => {
     res.status(400).json(error);
   }
 });
+// * SELECT id, email, name FROM users WHERE email=email;
 router.get("/api/v1/users/email/:email", async (req, res) => {
   try {
     const { email } = req.params;
@@ -39,6 +32,8 @@ router.get("/api/v1/users/email/:email", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+// ! cómo harían un endpoint para que busque por id o por email
 
 router.post("/api/v1/users", async (req, res) => {
   try {
@@ -78,3 +73,6 @@ router.delete("/api/v1/users/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+// * MVC
+// * Vista --> desacoplada en un proyecto de react
