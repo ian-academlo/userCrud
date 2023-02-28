@@ -14,6 +14,32 @@ router.get("/api/v1/users", async (req, res) => {
   }
 });
 
+// SELECT * FROM users where id = 3;
+
+router.get("/api/v1/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByPk(id, {
+      attributes: ["id", "email", "name"],
+    });
+    res.json(user);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+router.get("/api/v1/users/email/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({
+      where: { email }, // ! { email: email }
+      attributes: ["id", "email", "name"],
+    });
+    res.json(user);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 router.post("/api/v1/users", async (req, res) => {
   try {
     const newUser = req.body;

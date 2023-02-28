@@ -38,3 +38,15 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+
+// Crear un CRUD
+// para TODOS
+// Crear una tarea
+// leer todas las tareas
+// actualizar una tarea
+// eliminar una tarea
+
+// Tarea : title, description, status ( completada o no esta completada )
+// vas a usar express, sequelize
+// crear un archivo de rutas para manejar las rutas de los todos
+// te recomiendo que tus endpoints sean '/api/v1/todo
