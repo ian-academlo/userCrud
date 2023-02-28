@@ -11,6 +11,17 @@ class UserServices {
       throw error;
     }
   }
+
+  static async getById(id) {
+    try {
+      const user = await User.findByPk(id, {
+        attributes: ["id", "name", "email"],
+      });
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserServices;

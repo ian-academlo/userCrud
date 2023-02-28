@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const User = require("../models/users.model");
-const { getAllUsers } = require("../controllers/users.controller");
+const { getAllUsers, getUserById } = require("../controllers/users.controller");
 
 const router = Router();
 
@@ -8,17 +8,8 @@ router.get("/api/v1/users", getAllUsers);
 
 // SELECT * FROM users where id = 3;
 
-router.get("/api/v1/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findByPk(id, {
-      attributes: ["id", "email", "name"],
-    });
-    res.json(user);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-});
+router.get("/api/v1/users/:id", getUserById);
+
 // * SELECT id, email, name FROM users WHERE email=email;
 router.get("/api/v1/users/email/:email", async (req, res) => {
   try {
